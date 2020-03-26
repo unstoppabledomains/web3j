@@ -34,7 +34,7 @@ import org.web3j.protocol.eea.Eea;
 import org.web3j.utils.Base64String;
 
 public interface Besu extends Eea {
-    static Besu build(Web3jService web3jService) {
+    static Besu build(final Web3jService web3jService) {
         return new JsonRpc2_0Besu(web3jService);
     }
 

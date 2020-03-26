@@ -39,20 +39,20 @@ public class TransactionReceipt {
     public TransactionReceipt() {}
 
     public TransactionReceipt(
-            String transactionHash,
-            String transactionIndex,
-            String blockHash,
-            String blockNumber,
-            String cumulativeGasUsed,
-            String gasUsed,
-            String contractAddress,
-            String root,
-            String status,
-            String from,
-            String to,
-            List<Log> logs,
-            String logsBloom,
-            String revertReason) {
+            final String transactionHash,
+            final String transactionIndex,
+            final String blockHash,
+            final String blockNumber,
+            final String cumulativeGasUsed,
+            final String gasUsed,
+            final String contractAddress,
+            final String root,
+            final String status,
+            final String from,
+            final String to,
+            final List<Log> logs,
+            final String logsBloom,
+            final String revertReason) {
         this.transactionHash = transactionHash;
         this.transactionIndex = transactionIndex;
         this.blockHash = blockHash;
@@ -73,7 +73,7 @@ public class TransactionReceipt {
         return transactionHash;
     }
 
-    public void setTransactionHash(String transactionHash) {
+    public void setTransactionHash(final String transactionHash) {
         this.transactionHash = transactionHash;
     }
 
@@ -85,7 +85,7 @@ public class TransactionReceipt {
         return transactionIndex;
     }
 
-    public void setTransactionIndex(String transactionIndex) {
+    public void setTransactionIndex(final String transactionIndex) {
         this.transactionIndex = transactionIndex;
     }
 
@@ -93,7 +93,7 @@ public class TransactionReceipt {
         return blockHash;
     }
 
-    public void setBlockHash(String blockHash) {
+    public void setBlockHash(final String blockHash) {
         this.blockHash = blockHash;
     }
 
@@ -105,7 +105,7 @@ public class TransactionReceipt {
         return blockNumber;
     }
 
-    public void setBlockNumber(String blockNumber) {
+    public void setBlockNumber(final String blockNumber) {
         this.blockNumber = blockNumber;
     }
 
@@ -117,7 +117,7 @@ public class TransactionReceipt {
         return cumulativeGasUsed;
     }
 
-    public void setCumulativeGasUsed(String cumulativeGasUsed) {
+    public void setCumulativeGasUsed(final String cumulativeGasUsed) {
         this.cumulativeGasUsed = cumulativeGasUsed;
     }
 
@@ -129,7 +129,7 @@ public class TransactionReceipt {
         return gasUsed;
     }
 
-    public void setGasUsed(String gasUsed) {
+    public void setGasUsed(final String gasUsed) {
         this.gasUsed = gasUsed;
     }
 
@@ -137,7 +137,7 @@ public class TransactionReceipt {
         return contractAddress;
     }
 
-    public void setContractAddress(String contractAddress) {
+    public void setContractAddress(final String contractAddress) {
         this.contractAddress = contractAddress;
     }
 
@@ -145,7 +145,7 @@ public class TransactionReceipt {
         return root;
     }
 
-    public void setRoot(String root) {
+    public void setRoot(final String root) {
         this.root = root;
     }
 
@@ -153,7 +153,7 @@ public class TransactionReceipt {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(final String status) {
         this.status = status;
     }
 
@@ -161,7 +161,7 @@ public class TransactionReceipt {
         if (null == status) {
             return true;
         }
-        BigInteger statusQuantity = Numeric.decodeQuantity(status);
+        final BigInteger statusQuantity = Numeric.decodeQuantity(status);
         return BigInteger.ONE.equals(statusQuantity);
     }
 
@@ -169,7 +169,7 @@ public class TransactionReceipt {
         return from;
     }
 
-    public void setFrom(String from) {
+    public void setFrom(final String from) {
         this.from = from;
     }
 
@@ -177,7 +177,7 @@ public class TransactionReceipt {
         return to;
     }
 
-    public void setTo(String to) {
+    public void setTo(final String to) {
         this.to = to;
     }
 
@@ -185,7 +185,7 @@ public class TransactionReceipt {
         return logs;
     }
 
-    public void setLogs(List<Log> logs) {
+    public void setLogs(final List<Log> logs) {
         this.logs = logs;
     }
 
@@ -193,7 +193,7 @@ public class TransactionReceipt {
         return logsBloom;
     }
 
-    public void setLogsBloom(String logsBloom) {
+    public void setLogsBloom(final String logsBloom) {
         this.logsBloom = logsBloom;
     }
 
@@ -201,12 +201,12 @@ public class TransactionReceipt {
         return revertReason;
     }
 
-    public void setRevertReason(String revertReason) {
+    public void setRevertReason(final String revertReason) {
         this.revertReason = revertReason;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -214,7 +214,7 @@ public class TransactionReceipt {
             return false;
         }
 
-        TransactionReceipt that = (TransactionReceipt) o;
+        final TransactionReceipt that = (TransactionReceipt) o;
 
         if (getTransactionHash() != null
                 ? !getTransactionHash().equals(that.getTransactionHash())

@@ -42,7 +42,7 @@ import org.web3j.utils.Base64String;
 import static java.util.Objects.requireNonNull;
 
 public class JsonRpc2_0Besu extends JsonRpc2_0Eea implements Besu {
-    public JsonRpc2_0Besu(Web3jService web3jService) {
+    public JsonRpc2_0Besu(final Web3jService web3jService) {
         super(web3jService);
     }
 
@@ -62,13 +62,14 @@ public class JsonRpc2_0Besu extends JsonRpc2_0Eea implements Besu {
     }
 
     @Override
-    public Request<?, BooleanResponse> cliqueDiscard(String address) {
+    public Request<?, BooleanResponse> cliqueDiscard(final String address) {
         return new Request<>(
                 "clique_discard", Arrays.asList(address), web3jService, BooleanResponse.class);
     }
 
     @Override
-    public Request<?, EthAccounts> cliqueGetSigners(DefaultBlockParameter defaultBlockParameter) {
+    public Request<?, EthAccounts> cliqueGetSigners(
+            final DefaultBlockParameter defaultBlockParameter) {
         return new Request<>(
                 "clique_getSigners",
                 Arrays.asList(defaultBlockParameter.getValue()),
@@ -77,7 +78,7 @@ public class JsonRpc2_0Besu extends JsonRpc2_0Eea implements Besu {
     }
 
     @Override
-    public Request<?, EthAccounts> cliqueGetSignersAtHash(String blockHash) {
+    public Request<?, EthAccounts> cliqueGetSignersAtHash(final String blockHash) {
         return new Request<>(
                 "clique_getSignersAtHash",
                 Arrays.asList(blockHash),
@@ -86,7 +87,8 @@ public class JsonRpc2_0Besu extends JsonRpc2_0Eea implements Besu {
     }
 
     @Override
-    public Request<?, BooleanResponse> cliquePropose(String address, Boolean signerAddition) {
+    public Request<?, BooleanResponse> cliquePropose(
+            final String address, final Boolean signerAddition) {
         return new Request<>(
                 "clique_propose",
                 Arrays.asList(address, signerAddition),
@@ -105,7 +107,7 @@ public class JsonRpc2_0Besu extends JsonRpc2_0Eea implements Besu {
 
     @Override
     public Request<?, BesuFullDebugTraceResponse> debugTraceTransaction(
-            String transactionHash, Map<String, Boolean> options) {
+            final String transactionHash, final Map<String, Boolean> options) {
         return new Request<>(
                 "debug_traceTransaction",
                 Arrays.asList(transactionHash, options),
@@ -188,7 +190,7 @@ public class JsonRpc2_0Besu extends JsonRpc2_0Eea implements Besu {
             final String privacyGroupId,
             final String address,
             final DefaultBlockParameter defaultBlockParameter) {
-        ArrayList<String> result =
+        final ArrayList<String> result =
                 new ArrayList<>(
                         Arrays.asList(privacyGroupId, address, defaultBlockParameter.getValue()));
         return new Request<>("priv_getCode", result, web3jService, EthGetCode.class);
@@ -198,7 +200,7 @@ public class JsonRpc2_0Besu extends JsonRpc2_0Eea implements Besu {
     public Request<?, EthCall> privCall(
             final Transaction transaction,
             final DefaultBlockParameter defaultBlockParameter,
-            String privacyGroupId) {
+            final String privacyGroupId) {
         return new Request<>(
                 "priv_call",
                 Arrays.asList(transaction, defaultBlockParameter, privacyGroupId),

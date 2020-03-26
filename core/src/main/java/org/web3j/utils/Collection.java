@@ -22,7 +22,7 @@ public class Collection {
 
     private Collection() {}
 
-    public static String[] tail(String[] args) {
+    public static String[] tail(final String[] args) {
         if (args.length == 0) {
             return EMPTY_STRING_ARRAY;
         } else {
@@ -31,11 +31,12 @@ public class Collection {
     }
 
     @SafeVarargs
-    public static <T> T[] create(T... args) {
+    public static <T> T[] create(final T... args) {
         return args;
     }
 
-    public static <T> String join(List<T> list, String separator, Function<T, String> function) {
+    public static <T> String join(
+            final List<T> list, final String separator, final Function<T, String> function) {
         String result = "";
         for (int i = 0; i < list.size(); i++) {
             result += function.apply(list.get(i)).trim();
@@ -46,7 +47,7 @@ public class Collection {
         return result;
     }
 
-    public static String join(List<String> list, String separator) {
+    public static String join(final List<String> list, final String separator) {
         String result = "";
         for (int i = 0; i < list.size(); i++) {
             result += list.get(i).trim();

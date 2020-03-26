@@ -32,22 +32,22 @@ public class Transaction {
     // default as per https://github.com/ethereum/wiki/wiki/JSON-RPC#eth_sendtransaction
     public static final BigInteger DEFAULT_GAS = BigInteger.valueOf(9000);
 
-    private String from;
-    private String to;
-    private BigInteger gas;
-    private BigInteger gasPrice;
-    private BigInteger value;
+    private final String from;
+    private final String to;
+    private final BigInteger gas;
+    private final BigInteger gasPrice;
+    private final BigInteger value;
     private String data;
-    private BigInteger nonce; // nonce field is not present on eth_call/eth_estimateGas
+    private final BigInteger nonce; // nonce field is not present on eth_call/eth_estimateGas
 
     public Transaction(
-            String from,
-            BigInteger nonce,
-            BigInteger gasPrice,
-            BigInteger gasLimit,
-            String to,
-            BigInteger value,
-            String data) {
+            final String from,
+            final BigInteger nonce,
+            final BigInteger gasPrice,
+            final BigInteger gasLimit,
+            final String to,
+            final BigInteger value,
+            final String data) {
         this.from = from;
         this.to = to;
         this.gas = gasLimit;
@@ -62,57 +62,61 @@ public class Transaction {
     }
 
     public static Transaction createContractTransaction(
-            String from,
-            BigInteger nonce,
-            BigInteger gasPrice,
-            BigInteger gasLimit,
-            BigInteger value,
-            String init) {
+            final String from,
+            final BigInteger nonce,
+            final BigInteger gasPrice,
+            final BigInteger gasLimit,
+            final BigInteger value,
+            final String init) {
 
         return new Transaction(from, nonce, gasPrice, gasLimit, null, value, init);
     }
 
     public static Transaction createContractTransaction(
-            String from, BigInteger nonce, BigInteger gasPrice, String init) {
+            final String from,
+            final BigInteger nonce,
+            final BigInteger gasPrice,
+            final String init) {
 
         return createContractTransaction(from, nonce, gasPrice, null, null, init);
     }
 
     public static Transaction createEtherTransaction(
-            String from,
-            BigInteger nonce,
-            BigInteger gasPrice,
-            BigInteger gasLimit,
-            String to,
-            BigInteger value) {
+            final String from,
+            final BigInteger nonce,
+            final BigInteger gasPrice,
+            final BigInteger gasLimit,
+            final String to,
+            final BigInteger value) {
 
         return new Transaction(from, nonce, gasPrice, gasLimit, to, value, null);
     }
 
     public static Transaction createFunctionCallTransaction(
-            String from,
-            BigInteger nonce,
-            BigInteger gasPrice,
-            BigInteger gasLimit,
-            String to,
-            BigInteger value,
-            String data) {
+            final String from,
+            final BigInteger nonce,
+            final BigInteger gasPrice,
+            final BigInteger gasLimit,
+            final String to,
+            final BigInteger value,
+            final String data) {
 
         return new Transaction(from, nonce, gasPrice, gasLimit, to, value, data);
     }
 
     public static Transaction createFunctionCallTransaction(
-            String from,
-            BigInteger nonce,
-            BigInteger gasPrice,
-            BigInteger gasLimit,
-            String to,
-            String data) {
+            final String from,
+            final BigInteger nonce,
+            final BigInteger gasPrice,
+            final BigInteger gasLimit,
+            final String to,
+            final String data) {
 
         return new Transaction(from, nonce, gasPrice, gasLimit, to, null, data);
     }
 
-    public static Transaction createEthCallTransaction(String from, String to, String data) {
+    public static Transaction createEthCallTransaction(
+            final String from, final String to, final String data) {
 
         return new Transaction(from, null, null, null, to, null, data);
     }
@@ -145,7 +149,7 @@ public class Transaction {
         return convert(nonce);
     }
 
-    private static String convert(BigInteger value) {
+    private static String convert(final BigInteger value) {
         if (value != null) {
             return Numeric.encodeQuantity(value);
         } else {

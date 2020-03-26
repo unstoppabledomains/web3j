@@ -27,7 +27,7 @@ import org.web3j.protocol.core.methods.response.EthLog.LogResult;
 /** Handler hashes for working with block filter requests */
 public class BlocksFilter extends Filter<List<String>> {
 
-    public BlocksFilter(Web3j web3j, Callback<List<String>> callback) {
+    public BlocksFilter(final Web3j web3j, final Callback<List<String>> callback) {
         super(web3j, callback);
     }
 
@@ -37,10 +37,10 @@ public class BlocksFilter extends Filter<List<String>> {
     }
 
     @Override
-    void process(List<LogResult> logResults) {
-        List<String> blockHashes = new ArrayList<>(logResults.size());
+    void process(final List<LogResult> logResults) {
+        final List<String> blockHashes = new ArrayList<>(logResults.size());
 
-        for (EthLog.LogResult logResult : logResults) {
+        for (final EthLog.LogResult logResult : logResults) {
             if (!(logResult instanceof EthLog.Hash)) {
                 throw new FilterException(
                         "Unexpected result type: " + logResult.get() + ", required Hash");
@@ -60,7 +60,7 @@ public class BlocksFilter extends Filter<List<String>> {
      * @return Optional.empty()
      */
     @Override
-    protected Optional<Request<?, EthLog>> getFilterLogs(BigInteger filterId) {
+    protected Optional<Request<?, EthLog>> getFilterLogs(final BigInteger filterId) {
         return Optional.empty();
     }
 }

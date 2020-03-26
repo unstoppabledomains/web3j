@@ -28,8 +28,6 @@ public class LocalWeb3jAccount {
     private static final Path EPIRUS_CONFIG_PATh =
             Paths.get(System.getProperty("user.home"), ".epirus", ".config");
 
-    private static String NODE_RPC_ENDPOINT = "https://%s-eth.epirus.io/%s";
-
     public static HttpService getOnlineServicesHttpService(final Network network) throws Exception {
         if (configExists()) {
 
@@ -47,16 +45,17 @@ public class LocalWeb3jAccount {
     }
 
     public static ObjectNode readConfigAsJson() throws IOException {
-        String configContents = new String(Files.readAllBytes(EPIRUS_CONFIG_PATh));
+        final String configContents = new String(Files.readAllBytes(EPIRUS_CONFIG_PATh));
         return new ObjectMapper().readValue(configContents, ObjectNode.class);
     }
 
-    public static boolean loginTokenExists(ObjectNode node) {
+    public static boolean loginTokenExists(final ObjectNode node) {
         return node.has("loginToken");
     }
 
-    public static HttpService createHttpServiceWithToken(Network network) throws IOException {
-        String httpEndpoint =
+    public static HttpService createHttpServiceWithToken(final Network network) throws IOException {
+        final String NODE_RPC_ENDPOINT = "https://%s-eth.epirus.io/%s";
+        final String httpEndpoint =
                 String.format(
                         NODE_RPC_ENDPOINT,
                         network.getNetworkName(),

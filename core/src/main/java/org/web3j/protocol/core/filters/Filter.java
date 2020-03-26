@@ -49,14 +49,14 @@ public abstract class Filter<T> {
 
     private long blockTime;
 
-    public Filter(Web3j web3j, Callback<T> callback) {
+    public Filter(final Web3j web3j, final Callback<T> callback) {
         this.web3j = web3j;
         this.callback = callback;
     }
 
-    public void run(ScheduledExecutorService scheduledExecutorService, long blockTime) {
+    public void run(final ScheduledExecutorService scheduledExecutorService, final long blockTime) {
         try {
-            EthFilter ethFilter = sendRequest();
+            final EthFilter ethFilter = sendRequest();
             if (ethFilter.hasError()) {
                 throwException(ethFilter.getError());
             }
@@ -90,7 +90,7 @@ public abstract class Filter<T> {
                             () -> {
                                 try {
                                     this.pollFilter(ethFilter);
-                                } catch (Throwable e) {
+                                } catch (final Throwable e) {
                                     // All exceptions must be caught, otherwise our job terminates
                                     // without
                                     // any notification
@@ -100,14 +100,14 @@ public abstract class Filter<T> {
                             0,
                             blockTime,
                             TimeUnit.MILLISECONDS);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throwException(e);
         }
     }
 
     private void getInitialFilterLogs() {
         try {
-            Optional<Request<?, EthLog>> maybeRequest = this.getFilterLogs(this.filterId);
+            final Optional<Request<?, EthLog>> maybeRequest = this.getFilterLogs(this.filterId);
             EthLog ethLog = null;
             if (maybeRequest.isPresent()) {
                 ethLog = maybeRequest.get().send();
@@ -118,20 +118,20 @@ public abstract class Filter<T> {
 
             process(ethLog.getLogs());
 
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throwException(e);
         }
     }
 
-    private void pollFilter(EthFilter ethFilter) {
+    private void pollFilter(final EthFilter ethFilter) {
         EthLog ethLog = null;
         try {
             ethLog = web3j.ethGetFilterChanges(filterId).send();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throwException(e);
         }
         if (ethLog.hasError()) {
-            Error error = ethLog.getError();
+            final Error error = ethLog.getError();
             switch (error.getCode()) {
                 case RpcErrors.FILTER_NOT_FOUND:
                     reinstallFilter();
@@ -159,7 +159,7 @@ public abstract class Filter<T> {
         schedule.cancel(false);
 
         try {
-            EthUninstallFilter ethUninstallFilter = web3j.ethUninstallFilter(filterId).send();
+            final EthUninstallFilter ethUninstallFilter = web3j.ethUninstallFilter(filterId).send();
             if (ethUninstallFilter.hasError()) {
                 throwException(ethUninstallFilter.getError());
             }
@@ -167,7 +167,7 @@ public abstract class Filter<T> {
             if (!ethUninstallFilter.isUninstalled()) {
                 throw new FilterException("Filter with id '" + filterId + "' failed to uninstall");
             }
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throwException(e);
         }
     }
@@ -181,12 +181,12 @@ public abstract class Filter<T> {
      */
     protected abstract Optional<Request<?, EthLog>> getFilterLogs(BigInteger filterId);
 
-    void throwException(Response.Error error) {
+    void throwException(final Response.Error error) {
         throw new FilterException(
                 "Invalid request: " + (error == null ? "Unknown Error" : error.getMessage()));
     }
 
-    void throwException(Throwable cause) {
+    void throwException(final Throwable cause) {
         throw new FilterException("Error sending request", cause);
     }
 }
