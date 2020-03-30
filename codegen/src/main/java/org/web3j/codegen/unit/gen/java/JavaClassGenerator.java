@@ -36,7 +36,8 @@ public class JavaClassGenerator implements UnitClassGenerator {
     private final String packageName;
     private final String writePath;
 
-    public JavaClassGenerator(final Class<?> theContract, final String packageName, String writePath) {
+    public JavaClassGenerator(
+            final Class<?> theContract, final String packageName, String writePath) {
         this.theContract = theContract;
         this.packageName = packageName;
         this.writePath = writePath;
