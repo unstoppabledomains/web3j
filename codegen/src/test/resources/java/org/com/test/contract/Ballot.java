@@ -1,4 +1,4 @@
-package org.com.test.contract;
+package java.org.com.test.contract;
 
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.TypeReference;

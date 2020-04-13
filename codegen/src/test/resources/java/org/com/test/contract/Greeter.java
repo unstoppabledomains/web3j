@@ -1,4 +1,4 @@
-package org.com.test.contract;
+package java.org.com.test.contract;
 
 import io.reactivex.Flowable;
 

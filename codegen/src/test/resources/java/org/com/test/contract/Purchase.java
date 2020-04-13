@@ -1,4 +1,4 @@
-package org.com.test.contract;
+package java.org.com.test.contract;
 
 import io.reactivex.Flowable;
 import org.web3j.abi.EventEncoder;
