@@ -12,8 +12,11 @@
  */
 package org.web3j.ens;
 
+import java.math.BigInteger;
+
 import org.web3j.crypto.Keys;
 import org.web3j.crypto.WalletUtils;
+import org.web3j.ens.constants.Constants;
 import org.web3j.ens.contracts.generated.ENS;
 import org.web3j.ens.contracts.generated.PublicResolver;
 import org.web3j.protocol.Web3j;
@@ -83,14 +86,18 @@ public class EnsResolver {
         }
     }
 
-    public String resolve(String contractId) {
+    public String resolve(String contractId) { return this.resolve(contractId, "ETH"); }
+
+    public String resolve(String contractId, String token) {
         if (isValidEnsName(contractId, addressLength)) {
             PublicResolver resolver = obtainPublicResolver(contractId);
-
+            
             byte[] nameHash = NameHash.nameHashAsBytes(contractId);
             String contractAddress = null;
             try {
-                contractAddress = resolver.addr(nameHash).send();
+                BigInteger coinType = this.getCoinType(token);
+                if (coinType.equals(null)) coinType = BigInteger.valueOf(60);
+                contractAddress = Numeric.toHexString(resolver.addr(nameHash, coinType).send());
             } catch (Exception e) {
                 throw new RuntimeException("Unable to execute Ethereum request", e);
             }
@@ -103,6 +110,13 @@ public class EnsResolver {
         } else {
             return contractId;
         }
+    }
+
+    private BigInteger getCoinType(String token) {
+        Constants bip44 = new Constants();
+        int value = bip44.find(token);
+        if (value == -1) return null;
+        return BigInteger.valueOf(value);
     }
 
     /**
